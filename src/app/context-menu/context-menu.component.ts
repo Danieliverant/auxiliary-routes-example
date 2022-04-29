@@ -6,6 +6,8 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import {ContextMenuItem} from "./context-menu-items.model";
+import {tap} from "rxjs/operators";
 
 @Component({
   selector: 'app-context-menu',
@@ -14,6 +16,8 @@ import { ActivatedRoute, Router } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContextMenuComponent implements OnInit {
+  items: ContextMenuItem[] = [];
+
   @HostListener('document:mousedown', ['$event'])
   onGlobalClick(event: MouseEvent): void {
     if (this.isClickOutside(event)) {
@@ -28,6 +32,8 @@ export class ContextMenuComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.route.data.pipe(tap(console.log)).subscribe(({contextMenuItems}) => this.items = contextMenuItems);
+
     this.route.params.subscribe(({ x, y }) => {
       this.elementRef.nativeElement.style.transform = `translate(${x}px, ${y}px)`;
     });
@@ -38,6 +44,6 @@ export class ContextMenuComponent implements OnInit {
   }
 
   private close(): void {
-    this.router.navigate([{ outlets: { context: null } }]);
+    this.router.navigate([...this.route.parent.snapshot.url, { outlets: { context: null } }]);
   }
 }
