@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
-import {ContextMenuItem} from "../context-menu-items.model";
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ContextMenuItem } from './context-menu-item.model';
 
 @Component({
   selector: 'app-context-menu-item',

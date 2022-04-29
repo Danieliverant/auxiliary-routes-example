@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AsideComponent } from './aside/aside.component';
-import { ContextMenuComponent } from './context-menu/context-menu.component';
-import { PlaylistComponent } from './playlist/playlist.component';
+import { AsideComponent } from './components/aside/aside.component';
+import { ContextMenuComponent } from './components/context-menu/context-menu.component';
+import { PlaylistComponent } from './modules/playlist/playlist.component';
 import {
   globalContextMenuItems,
   playlistContextMenuItems,
-} from './context-menu/context-menu-items.model';
-import { HomeComponent } from './home/home.component';
+} from './components/context-menu/context-menu-item/context-menu-item.model';
+import { HomeComponent } from './modules/home/home.component';
 
 const routes: Routes = [
   {
@@ -22,37 +22,17 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    component: HomeComponent,
-    data: {
-      contextMenuItems: globalContextMenuItems,
-    },
-    children: [
-      {
-        path: 'menu/:x/:y',
-        outlet: 'context',
-        component: ContextMenuComponent,
-      },
-    ]
+    loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule)
   },
   {
     path: 'playlist',
-    component: PlaylistComponent,
-    data: {
-      contextMenuItems: playlistContextMenuItems,
-    },
-    children: [
-      {
-        path: 'menu/:x/:y',
-        outlet: 'context',
-        component: ContextMenuComponent,
-      },
-    ]
-  },
+    loadChildren: () => import('./modules/playlist/playlist.module').then(m => m.PlaylistModule)
+  }
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { paramsInheritanceStrategy: 'always' }),
+    RouterModule.forRoot(routes, { paramsInheritanceStrategy: 'always', onSameUrlNavigation: 'reload' }),
   ],
   exports: [RouterModule],
 })

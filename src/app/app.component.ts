@@ -1,7 +1,5 @@
 import { Component, HostListener } from '@angular/core';
-import { Router } from '@angular/router';
-
-const OUTLET_REGEX = / *\([^)]*\) */g;
+import { ActivatedRoute, PRIMARY_OUTLET, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -14,12 +12,16 @@ export class AppComponent {
     this.openContextMenu(event);
   }
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private route: ActivatedRoute) {}
 
   private openContextMenu(event: MouseEvent): void {
+    const urlWithoutAuxiliaryRoute = this.router
+      .createUrlTree([], { relativeTo: this.route })
+      .root.children[PRIMARY_OUTLET].toString();
+
     this.router.navigate([
-      this.router.url.replace(OUTLET_REGEX, ''),
-      { outlets: { context: ['menu', event.x, event.y] } },
+      urlWithoutAuxiliaryRoute,
+      { outlets: { 'context-menu': [event.x, event.y] } },
     ]);
 
     event.preventDefault();
