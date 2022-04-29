@@ -1,10 +1,14 @@
 <router-outlet name="aside"></router-outlet>
-<router-outlet name="context"></router-outlet>
+
 <header class="header">
   <button class="menu-button">
-    <a [routerLink]="[{ outlets: { aside: [''], context: null}}]"><span></span><span></span><span></span></a>
+    <a [routerLink]="[{  outlets: { aside: '', context: null }} ]">
+      <!--  burger    -->
+      <span></span><span></span><span></span>
+    </a>
   </button>
 </header>
+
 <main class="main">
   <router-outlet></router-outlet>
 </main>

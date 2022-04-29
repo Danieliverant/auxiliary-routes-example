@@ -5,6 +5,7 @@ import {
   HostListener,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { AsideItem, globalAsideItems } from './aside-item/aside-item.model';
 
 @Component({
   selector: 'app-aside',
@@ -13,6 +14,8 @@ import { Router } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AsideComponent {
+  items: AsideItem[] = globalAsideItems;
+
   @HostListener('document:mousedown', ['$event'])
   onGlobalClick(event: MouseEvent): void {
     if (this.isClickOutside(event)) {
