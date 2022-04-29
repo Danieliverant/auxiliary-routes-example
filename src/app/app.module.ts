@@ -3,10 +3,14 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AsideComponent } from './aside/aside.component';
+import { ContextMenuComponent } from './context-menu/context-menu.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AsideComponent,
+    ContextMenuComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,46 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.header {
+  display: flex;
+  background: gray;
+  height: 80px;
+  padding: 20px;
+}
+
+.main {
+  flex: 1;
+}
+
+.menu-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+
+  a {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 30px;
+  }
+
+  &:active {
+    position: relative;
+    top: 1px;
+
+    span {
+      box-shadow: 0px 1px 2px 0px black;
+    }
+  }
+
+  span {
+    border-top: 4px solid white;
+    display: inline-block;
+    width: 40px;
+    border-radius: 4px;
+  }
+}
